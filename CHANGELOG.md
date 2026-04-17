@@ -1,6 +1,6 @@
 ## v1.0.2
 ### 17-04-2026
-* Remove nginx microcache purge (purgeMicrocache) — Cloudflare purge only
+* Remove nginx microcache purge (purgeMicrocache) (purgeMicrocache) — Cloudflare purge only
 
 ## v1.0.1
 ### 17-04-2026
