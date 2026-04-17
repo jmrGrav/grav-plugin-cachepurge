@@ -24,47 +24,12 @@ class CachePurgePlugin extends Plugin
         $this->log('=== CACHE PURGE START ===');
 
         try {
-            $this->purgeMicrocache();
-        } catch (\Throwable $e) {
-            $this->log('Microcache ERROR: ' . $e->getMessage());
-        }
-
-        try {
             $this->purgeCloudflare();
         } catch (\Throwable $e) {
             $this->log('Cloudflare ERROR: ' . $e->getMessage());
         }
 
         $this->log('=== CACHE PURGE END ===');
-    }
-
-    /**
-     * Purge microcache nginx
-     */
-    private function purgeMicrocache(): void
-    {
-        $target = '/dev/shm/microcache';
-        $real   = realpath($target);
-
-        if ($real === false) {
-            $this->log("Microcache: path not found ($target)");
-            return;
-        }
-
-        if ($real !== $target) {
-            $this->log("Microcache: path traversal détecté ($real != $target) — ABORT");
-            return;
-        }
-
-        $cmd = 'find ' . escapeshellarg($real) . ' -mindepth 1 -delete 2>&1';
-        exec($cmd, $output, $exitCode);
-
-        if ($exitCode !== 0) {
-            $this->log('Microcache: find failed (exit ' . $exitCode . ') → ' . implode(' | ', $output));
-            return;
-        }
-
-        $this->log('Microcache: purged successfully');
     }
 
     /**
@@ -121,7 +86,7 @@ class CachePurgePlugin extends Plugin
 
         $decoded = json_decode($response, true);
 
-        if ($httpCode !== 200 || !($decoded['success'] ?? false)) {
+        if ($httpCode !== 200 || !(($decoded['success'] ?? false))) {
             $errorMsg = $decoded['errors'][0]['message'] ?? 'unknown error';
             $this->log("Cloudflare: FAILED → $errorMsg");
             return;

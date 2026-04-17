@@ -1,3 +1,7 @@
+## v1.0.2
+### 17-04-2026
+* Remove nginx microcache purge (purgeMicrocache) — Cloudflare purge only
+
 ## v1.0.1
 ### 17-04-2026
 * Add default cachepurge.yaml for GPM compliance (defaults only, no secrets)
