@@ -1,0 +1,32 @@
+name: Cache Purge Cloudflare
+slug: cachepurge
+type: plugin
+version: 1.0.0
+description: Automatically purges Cloudflare CDN cache when a page is saved in Grav admin.
+icon: cloud
+author:
+  name: Jm Rohmer
+  url: https://arleo.eu
+homepage: https://github.com/jmrGrav/grav-plugin-cachepurge
+keywords: cloudflare, cache, purge, cdn, performance
+bugs: https://github.com/jmrGrav/grav-plugin-cachepurge/issues
+docs: https://github.com/jmrGrav/grav-plugin-cachepurge/blob/main/README.md
+license: MIT
+
+dependencies:
+  - { name: grav, version: '>=1.7.0' }
+
+form:
+  validation: loose
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin status
+      default: 1
+    zone_id:
+      type: text
+      label: Cloudflare Zone ID
+    api_token:
+      type: text
+      label: Cloudflare API Token
+      help: Token with Cache Purge permission
